@@ -35,7 +35,6 @@ def convert_dicom_to_image(dicom_bytes, output_format='JPEG'):
     normalized_pxl_array = pxl_data / pxl_data.max() * 255
     image = Image.fromarray(normalized_pxl_array.astype('uint8'))
     height, width = pxl_data.shape
-    print("height", height, "width", width)
     with BytesIO() as output_bytes:
         image.save(output_bytes, format=output_format)
         output_bytes.seek(0)
@@ -82,11 +81,9 @@ def transmit_dicom(dicom_data, de_identified_dicom, img_cnvertd):
 
     # Check the response
     if response.status_code == 200:
-        print("DICOM file transmitted to backend successfully.")
+        logger.info("DICOM file transmitted to backend successfully.")
     else:
-        print("Failed to transmit DICOM file. Error:", response.text)
-
-    
+        logger.error("Failed to transmit DICOM file. Error: %s", response.text)
 
 @bp.route('/receive_dicom', methods=['POST'])
 def index():
