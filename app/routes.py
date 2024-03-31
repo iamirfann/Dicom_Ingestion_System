@@ -77,8 +77,8 @@ def transmit_dicom(dicom_data, de_identified_dicom, img_cnvertd):
     
     payload = json.dumps(payload)
     
-    # Send the HTTP POST request
-    response = requests.post("https://annalise.ai/v1/images/upload", json=payload)
+    # Send the HTTP POST request 
+    response = requests.post("https://annalise.ai/v1/images/upload", json=payload) # ---> It is throwing 404 page not upload
 
     # Check the response
     if response.status_code == 200:
